@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G10021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ReadingsEntity" representedClassName="ReadingsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="sensor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SensorEntity" inverseName="readings" inverseEntity="SensorEntity" syncable="YES"/>
+    </entity>
+    <entity name="SensorEntity" representedClassName="SensorEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="readings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadingsEntity" inverseName="sensor" inverseEntity="ReadingsEntity" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="SensorEntity" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="ReadingsEntity" positionX="-54" positionY="9" width="128" height="90"/>
+    </elements>
 </model>
