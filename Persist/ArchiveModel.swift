@@ -75,3 +75,4 @@ class Reading:NSObject,NSCoding{
     }
 
 }
+

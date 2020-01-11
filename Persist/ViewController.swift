@@ -25,14 +25,38 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-coreData()
     }
 
+    var data=[Sensor: [Reading]]()
+    var rd:[Reading] = []
+    var sd :[Sensor] = []
 
     var   sarr = [Sensor(description: "dddd", name: "nnnnnn"),Sensor(description: "dddd2", name: "nnnnnn2")]
 
     
     @IBAction func g(_ sender: Any) {
+        let n :Int = Int(amount.text!)!
+        let s = Array(0...20).map({(v)->Sensor in
+  return Sensor(description:"Sensor number " + String(v),name:"S"+String(v))})
+   sd = s
+        
+var m =  s.reduce([Sensor: [Reading]]()) { (dict, s) -> [Sensor: [Reading]] in
+    var dict = dict
+    dict[s] = []
+    return dict
+}
+let r  = Array(0...n).map({(v)->Reading in
+let se = "S" + String(Int.random(in: 0...20))
+var  t = Double.random(in:0...31556926)
+t.round()
+let nr = Reading(timestamp:Double(t),sensor:se,value:Double.random(in:0...100))
+m[s.first(where:{$0.name==se})!]!.append(nr)
+return nr
+})
+        rd = r
+        data = m
+        
+        
     }
     
     
@@ -51,37 +75,74 @@ coreData()
     
     func coreData(){
         
-        var   rarr = [Reading(timestamp: Double(21312312), sensor:sarr[0].name, value: Double(2334)),
-        Reading(timestamp: Double(2112), sensor:sarr[1].name, value: Double(234)),Reading(timestamp: Double(12), sensor:sarr[1].name, value: Double(234)) ]
         let s = CoreService()
         s.deleteAll()
-        let se = sarr[0]
-        let se1 = sarr[1]
-        let startTime = NSDate()
-s.saveSensor(name: se.name, desc: se.desc, readings: [rarr[0]])
-s.saveSensor(name: se1.name, desc: se1.desc, readings: [rarr[1],rarr[2]])
-let finishTime = NSDate()
-        let measuredTime = finishTime.timeIntervalSince(startTime as Date)
-        print(measuredTime)
+        var startTime = NSDate()
+        for (se,re) in data{
+s.saveSensor(name: se.name, desc: se.desc, readings: re)
+    }
+        
+      //  print(s.loadREadings(name: "S1"))
+var finishTime = NSDate()
+        var measuredTime = finishTime.timeIntervalSince(startTime as Date)
         t1.text = String(measuredTime)
-       // print(s.loadREadings(name: "sdsd"))
-      //  print(s.findByFunction(queryFun: "average:"))
+        startTime = NSDate()
+        print(s.findByFunction(queryFun: "max:"))
+        print(s.findByFunction(queryFun: "min:"))
+        finishTime = NSDate()
+        measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        t2.text = String(measuredTime)
+        startTime = NSDate()
+
+        print(s.findByFunction(queryFun: "average:"))
+        finishTime = NSDate()
+        measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        t3.text = String(measuredTime)
+        startTime = NSDate()
+
         print(s.findByFunctionGroup())
+        finishTime = NSDate()
+        measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        t4.text = String(measuredTime)
 
         //print(s.loadData(name: se.name))
         
         
     }
     func archive(){
-              let s  = ArchiveService.saveSensor(sensor:sarr)
-              print(s)
-              print(ArchiveService.getSensors()![0].desc)
-              var   rarr = [Reading(timestamp: Double(21312312), sensor:sarr[0].name, value: Double(234)),
-                            Reading(timestamp: Double(2112), sensor:sarr[0].name, value: Double(234))        ]
+              let st  = ArchiveService.saveSensor(sensor:sd)
+        let rt  = ArchiveService.saveReadings(r: rd)
+        t1.text = String(st!+rt!)
 
-              let r  = ArchiveService.saveReadings(r: rarr)
-              print(r)
-              print(ArchiveService.getReadings()![0].timestamp)
+        let r:[Reading] = ArchiveService.getReadings()!
+          var startTime = NSDate()
+        var mx = r.map({$0.timestamp}).max()!
+        var mi = r.map({$0.timestamp}).min()!
+        var finishTime = NSDate()
+        var measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        t2.text = String(measuredTime)
+       print(mx)
+        startTime = NSDate()
+        ArchiveService.average(nums: r.map({$0.timestamp}))
+        finishTime = NSDate()
+        measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        t3.text = String(measuredTime)
+
+        startTime = NSDate()
+        let d = Dictionary(grouping: r, by: { $0.sensor })
+        var nd :[String:[Double]] = Dictionary()
+        for(se,re) in d{
+            nd[se] = [Double(re.capacity) ,ArchiveService.average(nums: re.map({$0.timestamp})) ]
+            
+        }
+        
+        finishTime = NSDate()
+        measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        t4.text = String(measuredTime)
+        print(nd)
+
+     
+
     }
     
     

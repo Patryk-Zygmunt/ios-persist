@@ -65,7 +65,7 @@ request.resultType = NSFetchRequestResultType.dictionaryResultType
 
 //4.
 request.propertiesToFetch = [expressionForFun(queryFun: queryFun)]
-let key = queryFun + "Timestamp"
+let key = queryFun
 
 var maxTimestamp: Double? = nil
 
