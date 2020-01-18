@@ -19,6 +19,8 @@
 		0339785523C6766D0013C56C /* ArchivierService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339785423C6766D0013C56C /* ArchivierService.swift */; };
 		0339785723C6886C0013C56C /* ArchiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339785623C6886C0013C56C /* ArchiveModel.swift */; };
 		3FCCD6FD23C87AAC00382BA6 /* CoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCCD6FC23C87AAC00382BA6 /* CoreService.swift */; };
+		F73452B323D32AC40022F491 /* LiteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73452B223D32AC40022F491 /* LiteService.swift */; };
+		F73452B623D32B5C0022F491 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F73452B523D32B5C0022F491 /* libsqlite3.0.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		0339785423C6766D0013C56C /* ArchivierService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivierService.swift; sourceTree = "<group>"; };
 		0339785623C6886C0013C56C /* ArchiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveModel.swift; sourceTree = "<group>"; };
 		3FCCD6FC23C87AAC00382BA6 /* CoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreService.swift; sourceTree = "<group>"; };
+		F73452B223D32AC40022F491 /* LiteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteService.swift; sourceTree = "<group>"; };
+		F73452B523D32B5C0022F491 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F73452B623D32B5C0022F491 /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +96,7 @@
 				0339783A23C674E00013C56C /* PersistTests */,
 				0339784523C674E00013C56C /* PersistUITests */,
 				0339781F23C674DE0013C56C /* Products */,
+				F73452B423D32B5B0022F491 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +124,7 @@
 				0339785423C6766D0013C56C /* ArchivierService.swift */,
 				0339785623C6886C0013C56C /* ArchiveModel.swift */,
 				3FCCD6FC23C87AAC00382BA6 /* CoreService.swift */,
+				F73452B223D32AC40022F491 /* LiteService.swift */,
 			);
 			path = Persist;
 			sourceTree = "<group>";
@@ -138,6 +145,14 @@
 				0339784823C674E00013C56C /* Info.plist */,
 			);
 			path = PersistUITests;
+			sourceTree = "<group>";
+		};
+		F73452B423D32B5B0022F491 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F73452B523D32B5C0022F491 /* libsqlite3.0.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +289,7 @@
 				0339782623C674DE0013C56C /* ViewController.swift in Sources */,
 				0339782223C674DE0013C56C /* AppDelegate.swift in Sources */,
 				0339785523C6766D0013C56C /* ArchivierService.swift in Sources */,
+				F73452B323D32AC40022F491 /* LiteService.swift in Sources */,
 				0339782C23C674DE0013C56C /* Persist.xcdatamodeld in Sources */,
 				0339785723C6886C0013C56C /* ArchiveModel.swift in Sources */,
 				3FCCD6FD23C87AAC00382BA6 /* CoreService.swift in Sources */,

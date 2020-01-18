@@ -66,6 +66,7 @@ return nr
     
     
     @IBAction func s(_ sender: Any) {
+        sqlite()
     }
     
     @IBAction func c(_ sender: Any) {
@@ -106,7 +107,7 @@ var finishTime = NSDate()
         t4.text = String(measuredTime)
 
         //print(s.loadData(name: se.name))
-        
+    
         
     }
     func archive(){
@@ -144,6 +145,46 @@ var finishTime = NSDate()
      
 
     }
+    
+    
+    
+    
+        
+        func sqlite(){
+            
+            let s = LiteService()
+            var startTime = NSDate()
+            for (se,re) in data{
+                s.SaveSensor(se: se, r: re)
+        }
+            
+          //  print(s.loadREadings(name: "S1"))
+    var finishTime = NSDate()
+            var measuredTime = finishTime.timeIntervalSince(startTime as Date)
+            t1.text = String(measuredTime)
+            startTime = NSDate()
+            print(s.findReadings(query: "SELECT max(timestamp) FROM Readings"))
+            print(s.findReadings(query: "SELECT min(timestamp) FROM Readings"))
+            finishTime = NSDate()
+            measuredTime = finishTime.timeIntervalSince(startTime as Date)
+            t2.text = String(measuredTime)
+            startTime = NSDate()
+
+            print(s.findReadings(query: "SELECT AVG(value) FROM Readings"))
+            finishTime = NSDate()
+            measuredTime = finishTime.timeIntervalSince(startTime as Date)
+            t3.text = String(measuredTime)
+            startTime = NSDate()
+
+            print(s.findGroupedAverge())
+            finishTime = NSDate()
+            measuredTime = finishTime.timeIntervalSince(startTime as Date)
+            t4.text = String(measuredTime)
+
+            //print(s.loadData(name: se.name))
+        
+            
+        }
     
     
 }
